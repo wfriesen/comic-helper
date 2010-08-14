@@ -1,0 +1,11 @@
+{
+  "name": "Comic Helper",
+  "version": "1.0",
+  "description": "Automatically load secret panels for web comics",
+  "content_scripts": [
+    {
+      "matches": ["http://www.smbc-comics.com/*"],
+      "js": ["smbc.js"]
+    }
+  ]
+}
