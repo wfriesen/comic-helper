@@ -17,7 +17,7 @@
     },
     {
       "matches": ["http://*.xkcd.com/*"],
-      "js": ["common.js", "xkcd.js"]
+      "js": ["common.js", "comics.js"]
     },
     {
       "matches": ["http://*.abstrusegoose.com/*"],
@@ -25,7 +25,7 @@
     },
     {
       "matches": ["http://*.boatcrime.com/*"],
-      "js": ["common.js", "boatcrime.js"]
+      "js": ["common.js", "comics.js"]
     },
     {
       "matches": ["http://*.qwantz.com/*"],
