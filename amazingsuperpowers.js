@@ -11,21 +11,11 @@ function addSecrets(image, panel, text) {
 	image.setAttribute("bgcolor","#f5f4d1");
 }
 
-for (i=0; i<document.images.length; i++) {
-	var image = document.images[i];
-	if (image.getAttribute("src").indexOf("ASPeasteregg.png") != -1) {
-		var panel = image.parentNode.getAttribute("href");
+var info = grabTitle("/comics/");
+var title = info[0];
+var image = info[1];
 
-		for (i=0; i<document.images.length; i++) {
-			var image = document.images[i];
-			if (image.getAttribute("src").indexOf("/comics/") != -1) {
-				var text = image.getAttribute("title");
+var egg = grabTitle("ASPeasteregg.png")[1];
+var panel = egg.parentNode.getAttribute("href");
 
-				addSecrets(image, panel, text);
-
-				break;
-			}
-		}
-		break;
-	}
-}
+addSecrets(image, panel, title);

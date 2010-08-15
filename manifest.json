@@ -9,7 +9,7 @@
     },
     {
       "matches": ["http://www.amazingsuperpowers.com/*"],
-      "js": ["amazingsuperpowers.js"]
+      "js": ["common.js", "amazingsuperpowers.js"]
     },
     {
       "matches": ["http://*.xkcd.com/*"],
