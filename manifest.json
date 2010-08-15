@@ -2,6 +2,10 @@
   "name": "Comic Helper",
   "version": "1.0",
   "description": "Automatically load secret panels for web comics",
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "content_scripts": [
     {
       "matches": ["http://www.smbc-comics.com/*"],
