@@ -18,6 +18,10 @@
     {
       "matches": ["http://*.abstrusegoose.com/*"],
       "js": ["common.js", "abstrusegoose.js"]
+    },
+    {
+      "matches": ["http://*.boatcrime.com/*"],
+      "js": ["common.js", "boatcrime.js"]
     }
   ]
 }

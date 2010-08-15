@@ -1,0 +1,1 @@
+grabAndAdd("/comics/");
