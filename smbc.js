@@ -1,15 +1,17 @@
-for (i=0; i<document.images.length; i++) {
-	if (document.images[i].getAttribute("src").indexOf("after.gif") != -1) {
-		var votey = document.images[i].getAttribute("src");
+images = document.images;
+for (i=0; i<images.length; i++) {
+	if (images[i].getAttribute("src").indexOf("after.gif") != -1) {
+		var votey = images[i].getAttribute("src");
 
-		for (i=0; i<document.getElementsByTagName("img").length; i++) {
-			if (document.getElementsByTagName("img")[i].src.indexOf("secretvoteybutton.gif") != -1) {
-				var e = document.getElementsByTagName("img")[i];
-				while (e.tagName.toLowerCase() != "table") e = e.parentNode;
-				e = e.parentNode;
-				var voteyElement = document.createElement("img");
-				voteyElement.setAttribute("src",votey);
-				e.insertBefore(voteyElement);
+		for (j=0; j<images.length; j++) {
+			if (images[j].getAttribute("src").indexOf("/comics/") != -1 && i != j) {
+				var div = document.createElement("center");
+				var img = document.createElement("img");
+				img.setAttribute("src",votey);
+				div.appendChild(img);
+
+				images[j].parentNode.insertBefore(div,images[j].nextSibling);
+				break;
 			}
 		}
 		break;
