@@ -6,6 +6,10 @@
     {
       "matches": ["http://www.smbc-comics.com/*"],
       "js": ["smbc.js"]
+    },
+    {
+      "matches": ["http://www.amazingsuperpowers.com/*"],
+      "js": ["amazingsuperpowers.js"]
     }
   ]
 }
