@@ -22,8 +22,14 @@ function grabTitle(srcString) {
 	Simple way to add title text below a given image. For some comics, calling this with
 	the output of grabTitle is all that's needed
 */
-function addTitle(title,image) {
+function addTitle(info) {
+	var title = info[0];
+	var image = info[1];
 	var div = document.createElement("div");
 	div.innerHTML = title;
 	image.parentNode.insertBefore(div,image.nextSibling);
+}
+
+function grabAndAdd(string) {
+	addTitle(grabTitle(string));
 }
