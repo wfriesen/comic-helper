@@ -22,6 +22,10 @@
     {
       "matches": ["http://*.boatcrime.com/*"],
       "js": ["common.js", "boatcrime.js"]
+    },
+    {
+      "matches": ["http://*.qwantz.com/*"],
+      "js": ["common.js", "qwantz.js"]
     }
   ]
 }
