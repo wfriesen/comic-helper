@@ -13,7 +13,7 @@
     },
     {
       "matches": ["http://*.xkcd.com/*"],
-      "js": ["xkcd.js"]
+      "js": ["common.js", "xkcd.js"]
     }
   ]
 }

@@ -1,12 +1,8 @@
-images = document.images;
-for (i=0; i<images.length; i++) {
-	if (images[i].getAttribute("src").indexOf("/comics/") != -1) {
-		var title = images[i].getAttribute("title");
+var info = grabTitle("/comics/");
+var title = info[0];
+var image = info[1];
 
-		var div = document.createElement("div");
-		div.innerHTML = title;
+var div = document.createElement("div");
+div.innerHTML = title;
 
-		images[i].parentNode.insertBefore(div,images[i].nextSibling);
-		break;
-	}
-}
+image.parentNode.insertBefore(div,image.nextSibling);
