@@ -10,6 +10,10 @@
     {
       "matches": ["http://www.amazingsuperpowers.com/*"],
       "js": ["amazingsuperpowers.js"]
+    },
+    {
+      "matches": ["http://*.xkcd.com/*"],
+      "js": ["xkcd.js"]
     }
   ]
 }
