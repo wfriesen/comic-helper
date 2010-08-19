@@ -12,10 +12,13 @@ function addSecrets(image, panel, text) {
 }
 
 var info = grabTitle("/comics/");
-var title = info[0];
-var image = info[1];
+if (info[0] != null && info[1] != null) {
+	var title = info[0];
+	var image = info[1];
 
-var egg = grabTitle("ASPeasteregg.png")[1];
-var panel = egg.parentNode.getAttribute("href");
-
-addSecrets(image, panel, title);
+	var egg = grabTitle("ASPeasteregg.png")[1];
+	if (egg != null) {
+		var panel = egg.parentNode.getAttribute("href");
+		addSecrets(image, panel, title);
+	}
+}
