@@ -1,21 +1,21 @@
 /*
 	Locate the first image to contain a given string.
 	Returns an array of the images title, and the image itself.
-	If a matching image is not found, it will return as a blank title,
-	along with the last image searched.
+	null values are returned if no matching image is found
 */
 function grabTitle(srcString) {
-	var title = "";
+	var image = null;
 	images = document.images;
 	for (i=0; i<images.length; i++) {
+		if (!images[i].hasAttribute("src")) continue;
 		if (images[i].getAttribute("src").indexOf(srcString) != -1) {
-			if (images[i].hasAttribute("title")) {
-				title = images[i].getAttribute("title");
-			}
-			break;
+			image = document.images[i];
+			if (image.hasAttribute("title")) {
+				return [image.getAttribute("title"),image];
+			} else return [null, image];
 		}
 	}
-	return [title,document.images[i]];
+	return [null,null];
 }
 
 /*
@@ -31,5 +31,7 @@ function addTitle(info) {
 }
 
 function grabAndAdd(string) {
-	addTitle(grabTitle(string));
+	var info = grabTitle(string);
+	if (info[0] == null || info[1] == null) return;
+	else addTitle(info);
 }
