@@ -3,11 +3,17 @@ NEWS for Comic Helper
 
 v2.0
 ----
+
+Released Monday, 23 August 2010
+
 * New icon
 * Documentation (README, NEWS, comments in common.js)
 
 v1.1
 ----
+
+Released Thursday, 19 August 2010
+
 * RSS title for qwantz.com
 * Cleanup of common code, and more error checking
 
