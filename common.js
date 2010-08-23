@@ -1,9 +1,9 @@
+function grabTitle(srcString) {
 /*
 	Locate the first image to contain a given string.
 	Returns an array of the images title, and the image itself.
 	null values are returned if no matching image is found
 */
-function grabTitle(srcString) {
 	var image = null;
 	images = document.images;
 	for (i=0; i<images.length; i++) {
@@ -18,11 +18,11 @@ function grabTitle(srcString) {
 	return [null,null];
 }
 
-/*
-	Simple way to add title text below a given image. For some comics, calling this with
-	the output of grabTitle is all that's needed
-*/
 function addTitle(info) {
+/*
+	Simple way to add title text below a given image. For some comics,
+	calling this with the output of grabTitle is all that's needed
+*/
 	var title = info[0];
 	var image = info[1];
 	var div = document.createElement("div");
@@ -31,6 +31,10 @@ function addTitle(info) {
 }
 
 function grabAndAdd(string) {
+/*
+	Puts together the grabTitle and addTitle functions, allowing some comics
+	to be coded in just this one function call
+*/
 	var info = grabTitle(string);
 	if (info[0] == null || info[1] == null) return;
 	else addTitle(info);
