@@ -1,0 +1,20 @@
+NEWS for Comic Helper
+=====================
+
+v1.1
+----
+* RSS title for qwantz.com
+* Cleanup of common code, and more error checking
+
+v1.0
+----
+
+Released Sunday, 15 August 2010
+
+* smbc-comics.com
+* amazingsuperpowers.com
+* xkcd.com
+* abstrusegoose.com
+* boatcrime.com
+* qwantz.com
+* Useful functions stored in common.js
