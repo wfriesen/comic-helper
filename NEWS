@@ -1,6 +1,11 @@
 NEWS for Comic Helper
 =====================
 
+v2.0
+----
+* New icon
+* Documentation (README, NEWS, comments in common.js)
+
 v1.1
 ----
 * RSS title for qwantz.com
