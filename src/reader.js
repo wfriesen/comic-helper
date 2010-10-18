@@ -70,18 +70,21 @@ function get_extras(comic, item_body, link) {
 				p.innerHTML = title;
 				return p;
 			}
+			break;
 		case "asp":
 			var title = getChildByTagName("img",item_body).getAttribute("title");
 			if (title) {
 				p.innerHTML = title;
 				return p;
 			}
+			break;
 		case "ag":
 			var title = getChildByTagName("img",item_body).getAttribute("title");
 			if (title) {
 				p.innerHTML = title;
 				return p;
 			}
+			break;
 		default:
 			return null;
 	}
