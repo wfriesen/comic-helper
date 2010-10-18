@@ -52,6 +52,7 @@ function get_entry_title_link(entry_main) {
 var comics = new Array();
 comics["http://xkcd.com/\d*"] = "xkcd";
 comics["http://www.amazingsuperpowers.com/.*"] = "asp";
+comics["http://feedproxy.google.com/~r/AbstruseGoose/*"] = "ag";
 function is_comic(link) {
 	for (var c in comics) {
 		var test = new RegExp(c);
@@ -70,6 +71,12 @@ function get_extras(comic, item_body, link) {
 				return p;
 			}
 		case "asp":
+			var title = getChildByTagName("img",item_body).getAttribute("title");
+			if (title) {
+				p.innerHTML = title;
+				return p;
+			}
+		case "ag":
 			var title = getChildByTagName("img",item_body).getAttribute("title");
 			if (title) {
 				p.innerHTML = title;
