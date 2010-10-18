@@ -53,6 +53,7 @@ var comics = new Array();
 comics["http://xkcd.com/\d*"] = "xkcd";
 comics["http://www.amazingsuperpowers.com/.*"] = "asp";
 comics["http://feedproxy.google.com/~r/AbstruseGoose/*"] = "ag";
+comics["http://www.boatcrime.com/2010/10/14/goldschlager/"] = "bc";
 function is_comic(link) {
 	for (var c in comics) {
 		var test = new RegExp(c);
@@ -64,6 +65,8 @@ function is_comic(link) {
 function get_extras(comic, item_body, link) {
 	var p = document.createElement("p");
 	switch (comic) {
+		case "ag":
+		case "bc":
 		case "xkcd":
 			var title = getChildByTagName("img",item_body).getAttribute("title");
 			if (title) {
@@ -72,13 +75,6 @@ function get_extras(comic, item_body, link) {
 			}
 			break;
 		case "asp":
-			var title = getChildByTagName("img",item_body).getAttribute("title");
-			if (title) {
-				p.innerHTML = title;
-				return p;
-			}
-			break;
-		case "ag":
 			var title = getChildByTagName("img",item_body).getAttribute("title");
 			if (title) {
 				p.innerHTML = title;
