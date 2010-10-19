@@ -9,7 +9,7 @@ def get_html(url):
 	req = urllib2.Request(url)
 	try:
 		handle = urllib2.urlopen(req)
-	except DownloadError:
+	except Exception:
 		return None
 	return handle.read()
 
