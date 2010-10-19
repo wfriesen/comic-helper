@@ -1,6 +1,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp.util import run_wsgi_app
 import urllib2
+from urlparse import urljoin
 from BeautifulSoup import BeautifulSoup
 
 def get_html(url):
@@ -22,7 +23,7 @@ class ASP(webapp.RequestHandler):
 		for img in soup.findAll("img"):
 			if "ASPeasteregg.png" in img["src"]:
 				try:
-					secret = link + img.parent["href"]
+					secret = urljoin(link,img.parent["href"])
 				except KeyError:
 					pass
 		if secret:
