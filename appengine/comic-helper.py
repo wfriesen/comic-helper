@@ -6,9 +6,8 @@ from BeautifulSoup import BeautifulSoup
 from django.utils import simplejson as json
 
 def get_html(url):
-	req = urllib2.Request(url)
 	try:
-		handle = urllib2.urlopen(req)
+		handle = urllib2.urlopen(url)
 	except Exception:
 		return None
 	return handle.read()
