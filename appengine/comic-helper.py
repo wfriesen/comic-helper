@@ -5,14 +5,17 @@ from BeautifulSoup import BeautifulSoup
 
 def get_html(url):
 	req = urllib2.Request(url)
-	handle = urllib2.urlopen(req)
-	html = handle.read()
-	return html
+	try:
+		handle = urllib2.urlopen(req)
+	except DownloadError:
+		return None
+	return handle.read()
 
 class ASP(webapp.RequestHandler):
 	def get(self):
 		link = self.request.get("link")
 		html = get_html(link)
+		if not html: return
 		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
 		soup = BeautifulSoup(html)
 		secret = None
