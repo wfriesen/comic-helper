@@ -30,6 +30,8 @@ class ASP(webapp.RequestHandler):
 					pass
 		if secret:
 			self.response.out.write(json.dumps({"panel":secret}))
+		else:
+			self.response.out.write(json.dumps({}))
 
 application = webapp.WSGIApplication(
 		[("/asp", ASP)],
