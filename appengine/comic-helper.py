@@ -3,7 +3,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 import urllib2
 from urlparse import urljoin
 from BeautifulSoup import BeautifulSoup
-from json import JSONEncoder
+from django.utils import simplejson as json
 
 def get_html(url):
 	req = urllib2.Request(url)
@@ -18,7 +18,7 @@ class ASP(webapp.RequestHandler):
 		link = self.request.get("link")
 		html = get_html(link)
 		if not html:
-			self.response.out.write(JSONEncoder().encode({}))
+			self.response.out.write(json.dumps({}))
 			return
 		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
 		soup = BeautifulSoup(html)
@@ -30,7 +30,7 @@ class ASP(webapp.RequestHandler):
 				except KeyError:
 					pass
 		if secret:
-			self.response.out.write(JSONEncoder().encode({"panel":secret}))
+			self.response.out.write(json.dumps({"panel":secret}))
 
 application = webapp.WSGIApplication(
 		[("/asp", ASP)],
