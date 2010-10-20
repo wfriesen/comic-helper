@@ -1,3 +1,5 @@
+var xmlHttp = new XMLHttpRequest();
+
 function getChildByClassName(className, parent) {
 	/*
 	Search the children of parent recursively, returning the first element
@@ -62,6 +64,35 @@ function is_comic(link) {
 	return null;
 }
 
+function add_secrets(item_body, title) {
+	//Surround with try block
+	var responseJSON = JSON.parse(xmlHttp.responseText);
+
+	var secrets = document.createElement("div");
+	var p = document.createElement("p");
+	p.innerHTML = title;
+	secrets.appendChild(p);
+	var panel = document.createElement("img");
+	panel.setAttribute("src",responseJSON.panel);
+	secrets.appendChild(panel);
+	item_body.appendChild(secrets);
+}
+
+function ajax_panel(link, item_body, title) {
+	if (xmlHttp) {
+		try {
+			xmlHttp.open("GET",link,true);
+			xmlHttp.onreadystatechange = function () {
+				if (!(xmlHttp.readyState == 4)) return;
+				if (xmlHttp.status == 200) add_secrets(item_body, title);
+			}
+			xmlHttp.send();
+		} catch (e) {
+			//Deal with exceptions here
+		}
+	}
+}
+
 function get_extras(comic, item_body, link) {
 	var p = document.createElement("p");
 	switch (comic) {
@@ -76,10 +107,7 @@ function get_extras(comic, item_body, link) {
 			break;
 		case "asp":
 			var title = getChildByTagName("img",item_body).getAttribute("title");
-			if (title) {
-				p.innerHTML = title;
-				return p;
-			}
+			ajax_panel("http://comic-helper.appspot.com/asp?link="+link, item_body, title);
 			break;
 		default:
 			return null;
@@ -99,8 +127,7 @@ var process_node = function(e) {
 	var comic = is_comic(entry_title_link);
 	if ( !comic ) return;
 
-	var extraElement = get_extras(comic, item_body, entry_title_link);
-	if ( extraElement ) item_body.appendChild(extraElement);
+	get_extras(comic, item_body, entry_title_link);
 }
 
 document.body.addEventListener('DOMNodeInserted', process_node, false);
