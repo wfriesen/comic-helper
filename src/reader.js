@@ -64,19 +64,12 @@ function is_comic(link) {
 	return null;
 }
 
-function add_secrets(item_body, title) {
+function add_secrets(item_body, title, panel_src) {
 	var secrets = document.createElement("div");
 	if (title) {
 		var p = document.createElement("p");
 		p.innerHTML = title;
 		secrets.appendChild(p);
-	}
-
-	var panel_src = null;
-	try {
-		var responseJSON = JSON.parse(xmlHttp.responseText);
-		panel_src = responseJSON.panel;
-	} catch (e) {
 	}
 
 	if (panel_src) {
@@ -88,13 +81,26 @@ function add_secrets(item_body, title) {
 	if (secrets.hasChildNodes()) item_body.appendChild(secrets);
 }
 
+function handle_response(item_body, title) {
+	var panel_src = null;
+	try {
+		var responseJSON = JSON.parse(xmlHttp.responseText);
+		panel_src = responseJSON.panel;
+	} catch (e) {
+	}
+
+	if (panel_src || title) {
+		add_secrets(item_body, title, panel_src);
+	}
+}
+
 function ajax_panel(link, item_body, title) {
 	if (xmlHttp) {
 		try {
 			xmlHttp.open("GET",link,true);
 			xmlHttp.onreadystatechange = function () {
 				if (!(xmlHttp.readyState == 4)) return;
-				if (xmlHttp.status == 200) add_secrets(item_body, title);
+				if (xmlHttp.status == 200) handle_response(item_body, title);
 			}
 			xmlHttp.send();
 		} catch (e) {}
