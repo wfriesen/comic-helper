@@ -97,9 +97,7 @@ function ajax_panel(link, item_body, title) {
 				if (xmlHttp.status == 200) add_secrets(item_body, title);
 			}
 			xmlHttp.send();
-		} catch (e) {
-			//Deal with exceptions here
-		}
+		} catch (e) {}
 	}
 }
 
