@@ -65,17 +65,27 @@ function is_comic(link) {
 }
 
 function add_secrets(item_body, title) {
-	//Surround with try block
-	var responseJSON = JSON.parse(xmlHttp.responseText);
-
 	var secrets = document.createElement("div");
-	var p = document.createElement("p");
-	p.innerHTML = title;
-	secrets.appendChild(p);
-	var panel = document.createElement("img");
-	panel.setAttribute("src",responseJSON.panel);
-	secrets.appendChild(panel);
-	item_body.appendChild(secrets);
+	if (title) {
+		var p = document.createElement("p");
+		p.innerHTML = title;
+		secrets.appendChild(p);
+	}
+
+	var panel_src = null;
+	try {
+		var responseJSON = JSON.parse(xmlHttp.responseText);
+		panel_src = responseJSON.panel;
+	} catch (e) {
+	}
+
+	if (panel_src) {
+		var panel = document.createElement("img");
+		panel.setAttribute("src",panel_src);
+		secrets.appendChild(panel);
+	}
+
+	if (secrets.hasChildNodes()) item_body.appendChild(secrets);
 }
 
 function ajax_panel(link, item_body, title) {
