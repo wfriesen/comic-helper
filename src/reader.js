@@ -116,7 +116,7 @@ function get_extras(comic, item_body, link) {
 			var title = getChildByTagName("img",item_body).getAttribute("title");
 			if (title) {
 				p.innerHTML = title;
-				return p;
+				add_secrets(item_body,title,null);
 			}
 			break;
 		case "asp":
