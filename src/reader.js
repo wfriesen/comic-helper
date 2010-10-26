@@ -55,7 +55,7 @@ var comics = new Array();
 comics["http://xkcd.com/\d*"] = "xkcd";
 comics["http://www.amazingsuperpowers.com/.*"] = "asp";
 comics["http://feedproxy.google.com/~r/AbstruseGoose/*"] = "ag";
-comics["http://www.boatcrime.com/2010/10/14/goldschlager/"] = "bc";
+comics["http://www.boatcrime.com/*"] = "bc";
 function is_comic(link) {
 	for (var c in comics) {
 		var test = new RegExp(c);
