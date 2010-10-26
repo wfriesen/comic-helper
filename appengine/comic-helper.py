@@ -49,10 +49,8 @@ class ASP(webapp.RequestHandler):
 		secret = get_secrets(link)
 
 		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
-		if secret:
-			self.response.out.write(json.dumps({"panel":secret}))
-		else:
-			self.response.out.write(json.dumps({}))
+		json_response = {"panel":secret} if secret else {}
+		self.response.out.write(json.dumps(json_response))
 
 application = webapp.WSGIApplication(
 		[("/asp", ASP)],
