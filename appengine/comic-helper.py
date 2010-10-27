@@ -25,7 +25,17 @@ class SecretModel(db.Model):
 	secret = db.StringProperty()
 	date = db.DateTimeProperty(auto_now_add=True)
 
-def get_secrets(link):
+def asp(link, soup):
+	secret = None
+	for img in soup.findAll("img"):
+		if "ASPeasteregg.png" in img["src"]:
+			try:
+				secret = urljoin(link,img.parent["href"])
+			except KeyError:
+				pass
+	return secret
+
+def get_secret(link, path):
 	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link='"+link+"' LIMIT 1")
 	if cache.count() == 1:
 		return cache[0].secret
@@ -35,13 +45,7 @@ def get_secrets(link):
 		return None
 
 	soup = BeautifulSoup(html)
-	secret = None
-	for img in soup.findAll("img"):
-		if "ASPeasteregg.png" in img["src"]:
-			try:
-				secret = urljoin(link,img.parent["href"])
-			except KeyError:
-				pass
+	secret = handlers[path](link,soup)
 	new_secret = SecretModel()
 	new_secret.link = link
 	new_secret.secret = secret
@@ -49,18 +53,20 @@ def get_secrets(link):
 
 	return secret
 
-class ASP(webapp.RequestHandler):
+class DefaultHandler(webapp.RequestHandler):
 	def get(self):
-		link = self.request.get("link")
+		path = self.request.path
+		if path in handlers:
+			link = self.request.get("link")
+			secret = get_secret(link,path)
+			self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
+			json_response = {"panel":secret} if secret else {}
+			self.response.out.write(json.dumps(json_response))
 
-		secret = get_secrets(link)
-
-		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
-		json_response = {"panel":secret} if secret else {}
-		self.response.out.write(json.dumps(json_response))
-
+handlers = {
+		"/asp":asp}
 application = webapp.WSGIApplication(
-		[("/asp", ASP)],
+		[("/.*", DefaultHandler)],
 		debug=True)
 
 def main():
