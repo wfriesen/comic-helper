@@ -66,11 +66,11 @@ def get_secret(link, path):
 
 class DefaultHandler(webapp.RequestHandler):
 	def get(self):
+		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
 		path = self.request.path
 		if path in handlers:
 			link = self.request.get("link")
 			secret = get_secret(link,path)
-			self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
 			json_response = {"panel":secret} if secret else {}
 			self.response.out.write(json.dumps(json_response))
 
