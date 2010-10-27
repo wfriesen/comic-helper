@@ -7,7 +7,8 @@ from BeautifulSoup import BeautifulSoup
 from django.utils import simplejson as json
 
 comic_urls = (
-		"www.amazingsuperpowers.com"
+		"www.amazingsuperpowers.com",
+		"www.smbc-comics.com"
 		)
 
 def get_html(url):
@@ -31,6 +32,16 @@ def asp(link, soup):
 		if "ASPeasteregg.png" in img["src"]:
 			try:
 				secret = urljoin(link,img.parent["href"])
+			except KeyError:
+				pass
+	return secret
+
+def smbc(link, soup):
+	secret = None
+	for img in soup.findAll("img"):
+		if "after.gif" in img["src"]:
+			try:
+				secret = urljoin(link,img["src"])
 			except KeyError:
 				pass
 	return secret
@@ -64,7 +75,8 @@ class DefaultHandler(webapp.RequestHandler):
 			self.response.out.write(json.dumps(json_response))
 
 handlers = {
-		"/asp":asp}
+		"/asp": asp,
+		"/smbc": smbc}
 application = webapp.WSGIApplication(
 		[("/.*", DefaultHandler)],
 		debug=True)
