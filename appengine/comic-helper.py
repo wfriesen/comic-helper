@@ -2,11 +2,18 @@ from google.appengine.ext import webapp
 from google.appengine.ext import db
 from google.appengine.ext.webapp.util import run_wsgi_app
 import urllib2
-from urlparse import urljoin
+from urlparse import urljoin, urlparse
 from BeautifulSoup import BeautifulSoup
 from django.utils import simplejson as json
 
+comic_urls = (
+		"www.amazingsuperpowers.com"
+		)
+
 def get_html(url):
+	netloc = urlparse(url).netloc
+	if netloc not in comic_urls:
+		return None
 	try:
 		handle = urllib2.urlopen(url)
 	except Exception:
