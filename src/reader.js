@@ -56,6 +56,7 @@ comics["http://xkcd.com/\d*"] = "xkcd";
 comics["http://www.amazingsuperpowers.com/.*"] = "asp";
 comics["http://feedproxy.google.com/~r/AbstruseGoose/*"] = "ag";
 comics["http://www.boatcrime.com/*"] = "bc";
+comics["http://www.smbc-comics.com/*"] = "smbc";
 function is_comic(link) {
 	for (var c in comics) {
 		var test = new RegExp(c);
@@ -108,6 +109,7 @@ function ajax_panel(link, item_body, title) {
 }
 
 function get_extras(comic, item_body, link) {
+	link = encodeURIComponent(link);
 	var p = document.createElement("p");
 	switch (comic) {
 		case "ag":
@@ -123,6 +125,8 @@ function get_extras(comic, item_body, link) {
 			var title = getChildByTagName("img",item_body).getAttribute("title");
 			ajax_panel("http://comic-helper.appspot.com/asp?link="+link, item_body, title);
 			break;
+		case "smbc":
+			ajax_panel("http://comic-helper.appspot.com/smbc?link="+link, item_body, title);
 		default:
 			return null;
 	}
