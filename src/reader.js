@@ -95,7 +95,8 @@ function handle_response(item_body, title, xmlHttp) {
 	}
 }
 
-function ajax_panel(link, item_body, title) {
+function ajax_panel(path, link, item_body, title) {
+	link = "http://comic-helper.appspot.com/"+path+"?link="+link;
 	var xmlHttp = new XMLHttpRequest();
 
 	if (xmlHttp) {
@@ -125,19 +126,15 @@ function get_extras(comic, item_body, link) {
 			break;
 		case "asp":
 			var title = getChildByTagName("img",item_body).getAttribute("title");
-			ajax_panel("http://comic-helper.appspot.com/asp?link="+link, item_body, title);
-			break;
 		case "smbc":
-			ajax_panel("http://comic-helper.appspot.com/smbc?link="+link, item_body, null);
-			break;
 		case "ch":
-			ajax_panel("http://comic-helper.appspot.com/ch?link="+link, item_body, null);
+			ajax_panel(comic,link, item_body, null);
 			break;
 		case "pa":
 			var div = getChildByTagName("div", item_body);
 			var test = /New Comic/i;
 			if (( div ) && ( test.test(div.innerHTML) )) {
-				ajax_panel("http://comic-helper.appspot.com/pa?link="+link, item_body, null);
+				ajax_panel("pa",link, item_body, null);
 			}
 			break;
 	}
