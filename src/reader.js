@@ -114,21 +114,22 @@ function ajax_panel(path, link, item_body, title) {
 function get_extras(comic, item_body, link) {
 	link = encodeURIComponent(link);
 	var p = document.createElement("p");
+	var title = null;
 	switch (comic) {
 		case "ag":
 		case "bc":
 		case "xkcd":
-			var title = getChildByTagName("img",item_body).getAttribute("title");
+			title = getChildByTagName("img",item_body).getAttribute("title");
 			if (title) {
 				p.innerHTML = title;
 				add_secrets(item_body,title,null);
 			}
 			break;
 		case "asp":
-			var title = getChildByTagName("img",item_body).getAttribute("title");
+			title = getChildByTagName("img",item_body).getAttribute("title");
 		case "smbc":
 		case "ch":
-			ajax_panel(comic,link, item_body, null);
+			ajax_panel(comic,link, item_body, title);
 			break;
 		case "pa":
 			var div = getChildByTagName("div", item_body);
