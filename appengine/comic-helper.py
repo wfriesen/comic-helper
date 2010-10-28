@@ -32,6 +32,7 @@ def asp(link, soup):
 		if "ASPeasteregg.png" in img["src"]:
 			try:
 				secret = urljoin(link,img.parent["href"])
+				break
 			except KeyError:
 				pass
 	return secret
@@ -42,6 +43,7 @@ def smbc(link, soup):
 		if "after.gif" in img["src"]:
 			try:
 				secret = urljoin(link,img["src"])
+				break
 			except KeyError:
 				pass
 	return secret
