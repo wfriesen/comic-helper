@@ -6,8 +6,8 @@ function getChildByClassName(className, parent) {
 	for (var i=0; i<parent.childNodes.length; i++) {
 		if (parent.childNodes[i].className == className) return parent.childNodes[i];
 		if (parent.childNodes[i].hasChildNodes()) {
-			var childNodes = getChildByClassName(className,parent.childNodes[i]);
-			if (childNodes) return childNodes;
+			var childNode = getChildByClassName(className,parent.childNodes[i]);
+			if (childNode) return childNode;
 		}
 	}
 	return null;
@@ -22,8 +22,8 @@ function getChildByTagName(tagName, parent) {
 		if (parent.childNodes[i].tagName &&
 				parent.childNodes[i].tagName.toLowerCase() == tagName ) return parent.childNodes[i];
 		if (parent.childNodes[i].hasChildNodes()) {
-			var childNodes = getChildByTagName(tagName,parent.childNodes[i]);
-			if (childNodes) return childNodes;
+			var childNode = getChildByTagName(tagName,parent.childNodes[i]);
+			if (childNode) return childNode;
 		}
 	}
 	return null;
