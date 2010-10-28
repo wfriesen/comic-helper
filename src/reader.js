@@ -19,7 +19,8 @@ function getChildByTagName(tagName, parent) {
 	that has the given tagName
 	*/
 	for (var i=0; i<parent.childNodes.length; i++) {
-		if (parent.childNodes[i].tagName.toLowerCase() == tagName ) return parent.childNodes[i];
+		if (parent.childNodes[i].tagName &&
+				parent.childNodes[i].tagName.toLowerCase() == tagName ) return parent.childNodes[i];
 		if (parent.childNodes[i].hasChildNodes()) {
 			var childNodes = getChildByTagName(tagName,parent.childNodes[i]);
 			if (childNodes) return childNodes;
@@ -79,7 +80,15 @@ function add_secrets(item_body, title, panel_src) {
 		secrets.appendChild(panel);
 	}
 
-	if (secrets.hasChildNodes()) item_body.appendChild(secrets);
+	if (secrets.hasChildNodes()) {
+		var image = getChildByTagName("img", item_body);
+		if ( image ) {
+			while ( image.parentNode.tagName.toLowerCase() == "a") {
+				image = image.parentNode;
+			}
+			image.parentNode.insertBefore(secrets, image.nextSibling);
+		} else item_body.appendChild(secrets);
+	}
 }
 
 function handle_response(item_body, title, xmlHttp) {
