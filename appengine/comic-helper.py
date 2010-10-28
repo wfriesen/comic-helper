@@ -9,7 +9,8 @@ from django.utils import simplejson as json
 comic_urls = (
 		"www.amazingsuperpowers.com",
 		"www.smbc-comics.com",
-		"www.explosm.net"
+		"www.explosm.net",
+		"feeds.penny-arcade.com"
 		)
 
 def get_html(url):
@@ -55,6 +56,9 @@ def ch(link, soup):
 def smbc(link, soup):
 	return get_src(link, soup, "after.gif")
 
+def pa(link, soup):
+	return get_src(link, soup, "art.penny-arcade.com")
+
 def get_secret(link, path):
 	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link='"+link+"' LIMIT 1")
 	if cache.count() == 1:
@@ -86,7 +90,8 @@ class DefaultHandler(webapp.RequestHandler):
 handlers = {
 		"/asp": asp,
 		"/smbc": smbc,
-		"/ch": ch}
+		"/ch": ch,
+		"/pa": pa}
 application = webapp.WSGIApplication(
 		[("/.*", DefaultHandler)],
 		debug=True)
