@@ -1,5 +1,3 @@
-var xmlHttp = new XMLHttpRequest();
-
 function getChildByClassName(className, parent) {
 	/*
 	Search the children of parent recursively, returning the first element
@@ -84,7 +82,7 @@ function add_secrets(item_body, title, panel_src) {
 	if (secrets.hasChildNodes()) item_body.appendChild(secrets);
 }
 
-function handle_response(item_body, title) {
+function handle_response(item_body, title, xmlHttp) {
 	var panel_src = null;
 	try {
 		var responseJSON = JSON.parse(xmlHttp.responseText);
@@ -98,11 +96,16 @@ function handle_response(item_body, title) {
 }
 
 function ajax_panel(link, item_body, title) {
+	var xmlHttp = new XMLHttpRequest();
+
 	if (xmlHttp) {
 		try {
-			xmlHttp.open("GET",link,false);
+			xmlHttp.open("GET",link,true);
+			xmlHttp.onreadystatechange = function () {
+				if (!(xmlHttp.readyState == 4)) return;
+				if (xmlHttp.status == 200) handle_response(item_body, title, xmlHttp);
+			}
 			xmlHttp.send();
-			if (xmlHttp.status == 200) handle_response(item_body, title);
 		} catch (e) {}
 	}
 }
