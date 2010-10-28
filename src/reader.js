@@ -137,8 +137,6 @@ function get_extras(comic, item_body, link) {
 				ajax_panel("http://comic-helper.appspot.com/pa?link="+link, item_body, null);
 			}
 			break;
-		default:
-			return null;
 	}
 }
 
