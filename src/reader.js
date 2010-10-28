@@ -99,12 +99,9 @@ function handle_response(item_body, title) {
 function ajax_panel(link, item_body, title) {
 	if (xmlHttp) {
 		try {
-			xmlHttp.open("GET",link,true);
-			xmlHttp.onreadystatechange = function () {
-				if (!(xmlHttp.readyState == 4)) return;
-				if (xmlHttp.status == 200) handle_response(item_body, title);
-			}
+			xmlHttp.open("GET",link,false);
 			xmlHttp.send();
+			if (xmlHttp.status == 200) handle_response(item_body, title);
 		} catch (e) {}
 	}
 }
