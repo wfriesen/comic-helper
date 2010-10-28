@@ -57,6 +57,7 @@ comics["http://www.amazingsuperpowers.com/.*"] = "asp";
 comics["http://feedproxy.google.com/~r/AbstruseGoose/*"] = "ag";
 comics["http://www.boatcrime.com/*"] = "bc";
 comics["http://www.smbc-comics.com/*"] = "smbc";
+comics["http://www.explosm.net/comics/*"] = "ch";
 function is_comic(link) {
 	for (var c in comics) {
 		var test = new RegExp(c);
@@ -127,6 +128,10 @@ function get_extras(comic, item_body, link) {
 			break;
 		case "smbc":
 			ajax_panel("http://comic-helper.appspot.com/smbc?link="+link, item_body, title);
+			break;
+		case "ch":
+			ajax_panel("http://comic-helper.appspot.com/ch?link="+link, item_body, null);
+			break;
 		default:
 			return null;
 	}

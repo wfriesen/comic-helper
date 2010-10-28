@@ -8,7 +8,8 @@ from django.utils import simplejson as json
 
 comic_urls = (
 		"www.amazingsuperpowers.com",
-		"www.smbc-comics.com"
+		"www.smbc-comics.com",
+		"www.explosm.net"
 		)
 
 def get_html(url):
@@ -26,6 +27,17 @@ class SecretModel(db.Model):
 	secret = db.StringProperty()
 	date = db.DateTimeProperty(auto_now_add=True)
 
+def get_src(link, soup, name):
+	src = None
+	for img in soup.findAll("img"):
+		if name.lower() in img["src"].lower():
+			try:
+				src = urljoin(link,img["src"])
+				break
+			except KeyError:
+				pass
+	return src
+
 def asp(link, soup):
 	secret = None
 	for img in soup.findAll("img"):
@@ -37,16 +49,11 @@ def asp(link, soup):
 				pass
 	return secret
 
+def ch(link, soup):
+	return get_src(link, soup, "/comics/")
+
 def smbc(link, soup):
-	secret = None
-	for img in soup.findAll("img"):
-		if "after.gif" in img["src"]:
-			try:
-				secret = urljoin(link,img["src"])
-				break
-			except KeyError:
-				pass
-	return secret
+	return get_src(link, soup, "after.gif")
 
 def get_secret(link, path):
 	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link='"+link+"' LIMIT 1")
@@ -78,7 +85,8 @@ class DefaultHandler(webapp.RequestHandler):
 
 handlers = {
 		"/asp": asp,
-		"/smbc": smbc}
+		"/smbc": smbc,
+		"/ch": ch}
 application = webapp.WSGIApplication(
 		[("/.*", DefaultHandler)],
 		debug=True)
