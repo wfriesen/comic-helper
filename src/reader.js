@@ -127,7 +127,7 @@ function get_extras(comic, item_body, link) {
 			ajax_panel("http://comic-helper.appspot.com/asp?link="+link, item_body, title);
 			break;
 		case "smbc":
-			ajax_panel("http://comic-helper.appspot.com/smbc?link="+link, item_body, title);
+			ajax_panel("http://comic-helper.appspot.com/smbc?link="+link, item_body, null);
 			break;
 		case "ch":
 			ajax_panel("http://comic-helper.appspot.com/ch?link="+link, item_body, null);
