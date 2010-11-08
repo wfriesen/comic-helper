@@ -1,6 +1,15 @@
 NEWS for Comic Helper
 =====================
 
+v3.0
+----
+
+Released Monday, 8 November 2010
+
+* Add secret content to items in Google Reader, and main panels for comics
+  that don't include them in RSS (Penny Arcade, Cyanide & Happiness)
+* Small code fixes
+
 v2.0
 ----
 

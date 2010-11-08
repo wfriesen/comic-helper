@@ -1,7 +1,14 @@
 Github: http://github.com/wfriesen/comic-helper
 Author: William Friesen <wfriesen@gmail.com>
-Licence: Whatever you want
+Licence: None / BSD
 
-Comic Helper is a an extension for Google Chrome for webcomics that include
-secret/easter egg content in hidden panels, alt text, etc.
-The extra content is found, and placed below the main comic
+Comic Helper makes it easier to read webcomics by including in the page any
+secret/easter egg content in hidden panels, alt text, etc, and improving
+RSS feeds in Google Reader by including content that isn't served by RSS.
+
+Included in /src is the source for a Google Chrome extension.
+/appengine includes the Google App Engine project that handles the scraping of
+hidden content data, returning it in JSON
+
+Comic Helper uses the Beautiful Soup Python module, under the BSD license,
+whose home page is http://www.crummy.com/software/BeautifulSoup/
