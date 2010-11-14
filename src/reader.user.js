@@ -1,3 +1,13 @@
+// ==UserScript==
+// @name			Comic Helper
+// @namespace		http://github.com/wfriesen/comic-helper
+// @description		Adds content to web comic RSS feeds shown in Google Reader,
+// including comics for feeds that don't include it, and hidden "easter egg" content
+// @version			3.0
+// @include			http://reader.google.com/reader/*
+// @include			http://www.google.com/reader/*
+// ==/UserScript==
+
 function getChildByClassName(className, parent) {
 	/*
 	Search the children of parent recursively, returning the first element
