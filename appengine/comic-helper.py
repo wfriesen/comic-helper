@@ -65,11 +65,9 @@ def get_secret(link, path):
 		return cache[0].secret
 
 	html = get_html(link)
-	if not html:
-		return None
 
-	soup = BeautifulSoup(html)
-	secret = handlers[path](link,soup)
+	secret = handlers[path](link,BeautifulSoup(html)) if html else None
+
 	new_secret = SecretModel()
 	new_secret.link = link
 	new_secret.secret = secret
