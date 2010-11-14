@@ -5,6 +5,7 @@ import urllib2
 from urlparse import urljoin, urlparse
 from BeautifulSoup import BeautifulSoup
 from django.utils import simplejson as json
+import datetime
 
 comic_urls = (
 		"www.amazingsuperpowers.com",
@@ -62,14 +63,22 @@ def pa(link, soup):
 def get_secret(link, path):
 	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link='"+link+"' LIMIT 1")
 	if cache.count() == 1:
-		return cache[0].secret
-
-	html = get_html(link)
+		if cache[0].secret:
+			return cache[0].secret
+		else:
+			last_checked = cache[0].date
+			check_cutoff = datetime.datetime.now() - datetime.timedelta(minutes=15)
+			html = get_html(link) if last_checked < check_cutoff else None
+	else:
+		html = get_html(link)
 
 	secret = handlers[path](link,BeautifulSoup(html)) if html else None
 
-	new_secret = SecretModel()
-	new_secret.link = link
+	if cache.count():
+		new_secret = cache[0]
+	else:
+		new_secret = SecretModel()
+		new_secret.link = link
 	new_secret.secret = secret
 	new_secret.put()
 
