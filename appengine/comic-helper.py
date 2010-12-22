@@ -61,7 +61,7 @@ def pa(link, soup):
 	return get_src(link, soup, "art.penny-arcade.com")
 
 def get_secret(link, path):
-	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link='"+link+"' LIMIT 1")
+	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link = :link LIMIT 1", link=link)
 	if cache.count() == 1:
 		if cache[0].secret:
 			return cache[0].secret
