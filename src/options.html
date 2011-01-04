@@ -1,0 +1,50 @@
+<html>
+<head><title>My Test Extension Options</title></head>
+<script type="text/javascript">
+
+// Saves options to localStorage.
+function save_options() {
+	var checkboxes = document.getElementsByName("boxes");
+	for (i in checkboxes) {
+		var id = checkboxes[i].getAttribute("id");
+		localStorage[id] = checkboxes[i].checked;
+	}
+}
+
+// Restores select box state to saved value from localStorage.
+function restore_options() {
+	var checkboxes = document.getElementsByName("boxes");
+	for (i in checkboxes) {
+		var id = checkboxes[i].getAttribute("id");
+		var checked = localStorage[id];
+		checkboxes[i].checked = (!checked || checked == "true") ? true : false;
+	}
+}
+
+// Select/Unselect all options
+function toggle_all(source) {
+	var checkboxes = document.getElementsByName("boxes");
+	for (i in checkboxes) {
+		checkboxes[i].checked = source.checked;
+	}
+}
+
+</script>
+
+<body onload="restore_options()">
+
+<p>Enabled for:</p>
+<input type="checkbox" name="boxes" id="smbc" /><label for="smbc">smbc-comics.com</label><br />
+<input type="checkbox" name="boxes" id="asp" /><label for="asp">amazingsuperpowers.com</label><br />
+<input type="checkbox" name="boxes" id="xkcd" /><label for="xkcd">xkcd.com</label><br />
+<input type="checkbox" name="boxes" id="ag" /><label for="ag">abstrusegoose.com</label><br />
+<input type="checkbox" name="boxes" id="bc" /><label for="bc">boatcrime.com</label><br />
+<input type="checkbox" name="boxes" id="qwantz" /><label for="qwantz">qwantz.com</label><br />
+<p>
+<input type="checkbox" id="toggle" onclick="toggle_all(this)" /><label for="toggle">Select/Unselect All</label>
+</p>
+
+<br>
+<button onclick="save_options()">Save</button>
+</body>
+</html>

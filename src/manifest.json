@@ -2,6 +2,8 @@
   "name": "Comic Helper",
   "version": "3.0",
   "description": "Automatically load secret panels for web comics",
+  "options_page": "options.html",
+  "background_page": "background.html",
   "icons": {
     "48": "icon48.png",
     "128": "icon128.png"
@@ -9,7 +11,7 @@
   "content_scripts": [
     {
       "matches": ["http://www.smbc-comics.com/*"],
-      "js": ["smbc.js"]
+      "js": ["common.js", "smbc.js"]
     },
     {
       "matches": ["http://www.amazingsuperpowers.com/*"],
@@ -17,7 +19,7 @@
     },
     {
       "matches": ["http://*.xkcd.com/*"],
-      "js": ["common.js", "comics.js"]
+      "js": ["common.js", "xkcd.js"]
     },
     {
       "matches": ["http://*.abstrusegoose.com/*"],
@@ -25,7 +27,7 @@
     },
     {
       "matches": ["http://*.boatcrime.com/*"],
-      "js": ["common.js", "comics.js"]
+      "js": ["common.js", "bc.js"]
     },
     {
       "matches": ["http://*.qwantz.com/*"],

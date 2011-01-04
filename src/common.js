@@ -39,3 +39,16 @@ function grabAndAdd(string) {
 	if (info[0] == null || info[1] == null) return;
 	else addTitle(info);
 }
+
+function checkOption(name, cb) {
+/*
+	Send a request to background.html to retrieve variable 'name'
+	from localStorage. If it is "true", then call the callback
+	function cb
+*/
+	chrome.extension.sendRequest({option: name}, function(response) {
+		if ( response.option == "true" ) {
+			cb();
+		}
+	});
+}
