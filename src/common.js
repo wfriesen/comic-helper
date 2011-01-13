@@ -47,7 +47,7 @@ function checkOption(name, cb) {
 	function cb
 */
 	chrome.extension.sendRequest({option: name}, function(response) {
-		if ( response.option == "true" ) {
+		if ( !response.option || response.option == "true" ) {
 			cb();
 		}
 	});
