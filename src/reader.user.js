@@ -60,14 +60,15 @@ function get_entry_title_link(entry_main) {
 	else return link.getAttribute("href");
 }
 
-var comics = new Array();
-comics["http://xkcd.com/\d*"] = "xkcd";
-comics["http://www.amazingsuperpowers.com/.*"] = "asp";
-comics["http://feedproxy.google.com/~r/AbstruseGoose/*"] = "ag";
-comics["http://www.boatcrime.com/*"] = "bc";
-comics["http://feedproxy.google.com/~r/smbc-comics/*"] = "smbc";
-comics["http://www.explosm.net/comics/*"] = "ch";
-comics["http://feeds.penny-arcade.com/*"] = "pa";
+var comics = {
+		"http://xkcd.com/*" : "xkcd",
+		"http://www.amazingsuperpowers.com/.*" : "asp",
+		"http://feedproxy.google.com/~r/AbstruseGoose/*" : "ag",
+		"http://www.boatcrime.com/*" : "bc",
+		"http://feedproxy.google.com/~r/smbc-comics/*" : "smbc",
+		"http://www.explosm.net/comics/*" : "ch",
+		"http://feeds.penny-arcade.com/*" : "pa"
+}
 function is_comic(link) {
 	for (var c in comics) {
 		var test = new RegExp(c);
