@@ -1,7 +1,7 @@
 from google.appengine.ext import webapp
 from google.appengine.ext import db
 from google.appengine.ext.webapp.util import run_wsgi_app
-import urllib2
+from google.appengine.api import urlfetch
 import re
 from urlparse import urljoin, urlparse
 from BeautifulSoup import BeautifulSoup
@@ -24,11 +24,8 @@ def valid_comic_url(url):
 def get_html(url):
 	if not valid_comic_url(url):
 		return None
-	try:
-		handle = urllib2.urlopen(url)
-	except Exception:
-		return None
-	return handle.read()
+	result = urlfetch.fetch(url)
+	return result.content if result.status_code == 200 else None
 
 class SecretModel(db.Model):
 	link = db.StringProperty()
