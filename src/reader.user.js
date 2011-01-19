@@ -66,6 +66,7 @@ var comics = {
 		"http://feedproxy.google.com/~r/AbstruseGoose/*" : "ag",
 		"http://www.boatcrime.com/*" : "bc",
 		"http://feedproxy.google.com/~r/smbc-comics/*" : "smbc",
+		"http://www.smbc-comics.com/*" : "smbc",
 		"http://www.explosm.net/comics/*" : "ch",
 		"http://feeds.penny-arcade.com/*" : "pa"
 }
