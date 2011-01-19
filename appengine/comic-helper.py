@@ -11,7 +11,8 @@ comic_urls = (
 		"www.amazingsuperpowers.com",
 		"www.smbc-comics.com",
 		"www.explosm.net",
-		"feeds.penny-arcade.com"
+		"feeds.penny-arcade.com",
+		"feedproxy.google.com"
 		)
 
 def get_html(url):

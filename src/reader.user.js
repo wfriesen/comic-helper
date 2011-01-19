@@ -65,7 +65,7 @@ comics["http://xkcd.com/\d*"] = "xkcd";
 comics["http://www.amazingsuperpowers.com/.*"] = "asp";
 comics["http://feedproxy.google.com/~r/AbstruseGoose/*"] = "ag";
 comics["http://www.boatcrime.com/*"] = "bc";
-comics["http://www.smbc-comics.com/*"] = "smbc";
+comics["http://feedproxy.google.com/~r/smbc-comics/*"] = "smbc";
 comics["http://www.explosm.net/comics/*"] = "ch";
 comics["http://feeds.penny-arcade.com/*"] = "pa";
 function is_comic(link) {
