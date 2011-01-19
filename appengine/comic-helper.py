@@ -2,22 +2,27 @@ from google.appengine.ext import webapp
 from google.appengine.ext import db
 from google.appengine.ext.webapp.util import run_wsgi_app
 import urllib2
+import re
 from urlparse import urljoin, urlparse
 from BeautifulSoup import BeautifulSoup
 from django.utils import simplejson as json
 import datetime
 
-comic_urls = (
-		"www.amazingsuperpowers.com",
-		"www.smbc-comics.com",
-		"www.explosm.net",
-		"feeds.penny-arcade.com",
-		"feedproxy.google.com"
-		)
+def valid_comic_url(url):
+	comic_urls = (
+			"www.amazingsuperpowers.com",
+			"www.smbc-comics.com",
+			"www.explosm.net",
+			"feeds.penny-arcade.com",
+	)
+	netloc = urlparse(url).netloc
+	if netloc == "feedproxy.google.com":
+		matches = re.findall("http://feedproxy.google.com/~r/(.*?)/.*", url)
+		return True if len(matches) == 1 and matches[0] == "smbc-comics" else False
+	return True if netloc in comic_urls else False
 
 def get_html(url):
-	netloc = urlparse(url).netloc
-	if netloc not in comic_urls:
+	if not valid_comic_url(url):
 		return None
 	try:
 		handle = urllib2.urlopen(url)
