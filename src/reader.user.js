@@ -116,8 +116,8 @@ function handle_response(item_body, title, xmlHttp) {
 	}
 }
 
-function ajax_panel(path, link, item_body, title) {
-	link = "http://comic-helper.appspot.com/"+path+"?link="+link;
+function ajax_panel(comic, link, item_body, title) {
+	link = "http://comic-helper.appspot.com/panel?comic="+comic+"&link="+link;
 	var xmlHttp = new XMLHttpRequest();
 
 	if (xmlHttp) {

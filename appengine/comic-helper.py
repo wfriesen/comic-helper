@@ -91,6 +91,45 @@ def get_secret(link, path):
 
 	return secret
 
+def get_panel_secret(comic, link):
+	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link = :link LIMIT 1", link=link)
+	if cache.count() == 1:
+		if cache[0].secret:
+			return cache[0].secret
+		else:
+			last_checked = cache[0].date
+			check_cutoff = datetime.datetime.now() - datetime.timedelta(minutes=15)
+			html = get_html(link) if last_checked < check_cutoff else None
+	else:
+		html = get_html(link)
+
+	if comic not in comics:
+		return None
+
+	secret = comics[comic](link,BeautifulSoup(html)) if html else None
+
+	if cache.count():
+		new_secret = cache[0]
+	else:
+		new_secret = SecretModel()
+		new_secret.link = link
+	new_secret.secret = secret
+	new_secret.put()
+
+	return secret
+
+class Panel(webapp.RequestHandler):
+	def get(self):
+		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
+		comic = self.request.get("comic")
+		link = self.request.get("link")
+		if not (comic and link):
+			self.response.out.write(json.dumps({}))
+			return
+		secret = get_panel_secret(comic, link)
+		json_response = {"panel":secret} if secret else {}
+		self.response.out.write(json.dumps(json_response))
+
 class DefaultHandler(webapp.RequestHandler):
 	def get(self):
 		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
@@ -101,13 +140,19 @@ class DefaultHandler(webapp.RequestHandler):
 			json_response = {"panel":secret} if secret else {}
 			self.response.out.write(json.dumps(json_response))
 
+comics = {
+		"asp": asp,
+		"smbc": smbc,
+		"ch": ch,
+		"pa": pa}
 handlers = {
 		"/asp": asp,
 		"/smbc": smbc,
 		"/ch": ch,
 		"/pa": pa}
 application = webapp.WSGIApplication(
-		[("/.*", DefaultHandler)],
+		[("/panel",Panel),
+		("/.*", DefaultHandler)],
 		debug=True)
 
 def main():
