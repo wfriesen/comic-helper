@@ -3,7 +3,7 @@
 // @namespace		http://github.com/wfriesen/comic-helper
 // @description		Adds content to web comic RSS feeds shown in Google Reader,
 // including comics for feeds that don't include it, and hidden "easter egg" content
-// @version			3.1.1
+// @version			3.1.2
 // @include			http://reader.google.com/reader/*
 // @include			http://www.google.com/reader/*
 // ==/UserScript==
