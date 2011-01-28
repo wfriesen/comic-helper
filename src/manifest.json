@@ -11,7 +11,7 @@
   "content_scripts": [
     {
       "matches": ["http://www.smbc-comics.com/*"],
-      "js": ["common.js", "smbc.js"]
+      "js": ["jquery-1.4.4.min.js", "common.js", "smbc.js"]
     },
     {
       "matches": ["http://www.amazingsuperpowers.com/*"],

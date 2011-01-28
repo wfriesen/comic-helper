@@ -1,23 +1,14 @@
 function go() {
-	images = document.images;
-	for (i=0; i<images.length; i++) {
-		if (images[i].getAttribute("src").indexOf("after.gif") != -1) {
-			var votey = images[i].getAttribute("src");
+	$("img[src$='after.gif']").each(function(i) {
+		var votey = $(this).attr("src");
 
-			for (j=0; j<images.length; j++) {
-				if (images[j].getAttribute("src").indexOf("/comics/") != -1 && i != j) {
-					var div = document.createElement("center");
-					var img = document.createElement("img");
-					img.setAttribute("src",votey);
-					div.appendChild(img);
-
-					images[j].parentNode.insertBefore(div,images[j].nextSibling);
-					break;
-				}
-			}
-			break;
-		}
-	}
+		$("img[src*='/comics/']").each(function(j) {
+			if (i == j) return;
+			var img = $("<img />").attr("src",votey);
+			var div = $("<center></center>").append(img);
+			$(this.nextSibling).before(div);
+		});
+	});
 }
 
 checkOption("smbc", go);
