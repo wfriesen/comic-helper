@@ -5,17 +5,14 @@ function grabTitle(srcString) {
 	null values are returned if no matching image is found
 */
 	var image = null;
-	images = document.images;
-	for (i=0; i<images.length; i++) {
-		if (!images[i].hasAttribute("src")) continue;
-		if (images[i].getAttribute("src").indexOf(srcString) != -1) {
-			image = document.images[i];
-			if (image.hasAttribute("title")) {
-				return [image.getAttribute("title"),image];
-			} else return [null, image];
+	var title = null;
+	$("img[src*='"+srcString+"']").each(function(i) {
+		image = this;
+		if (image.hasAttribute("title")) {
+			title = image.getAttribute("title");
 		}
-	}
-	return [null,null];
+	});
+	return [title, image];
 }
 
 function addTitle(info) {
@@ -27,7 +24,7 @@ function addTitle(info) {
 	var image = info[1];
 	var div = document.createElement("div");
 	div.innerHTML = title;
-	image.parentNode.insertBefore(div,image.nextSibling);
+	$(image.nextSibling).before(div);
 }
 
 function grabAndAdd(string) {
