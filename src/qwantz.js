@@ -24,17 +24,11 @@ function go() {
 		else rss = "RSS: " + rss;
 	}
 
-	var div = document.createElement("div");
-	var titleElement = document.createElement("p");
-	titleElement.innerHTML = title;
-	div.appendChild(titleElement);
-	var subjectElement = document.createElement("p");
-	subjectElement.innerHTML = subject;
-	div.appendChild(subjectElement);
-	var rssElement = document.createElement("p");
-	rssElement.innerHTML = rss;
-	div.appendChild(rssElement);
-	image.parentNode.insertBefore(div,image.nextSibling);
+	$(image).after($("<div />").append(
+			$("<p />").append(title),
+			$("<p />").append(subject),
+			$("<p />").append(rss)
+	));
 }
 
 checkOption("qwantz", go);
