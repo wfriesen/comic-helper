@@ -7,17 +7,13 @@ function go() {
 
 	//subject line of "contact" email address
 	var subject = "";
-	links = document.getElementsByTagName("a");
-	for (i=0; i<links.length; i++) {
-		if (links[i].innerHTML == "contact") {
-			var contact = links[i].getAttribute("href");
-			var index = contact.indexOf("mailto:ryan@qwantz.com?subject=");
-			if (index != -1) {
-				subject = "Contact: " + contact.substring(index+31);
-			}
-			break;
+	$("a:contains('contact')").each(function() {
+		var contact = $(this).attr("href");
+		var index = contact.indexOf("mailto:ryan@qwantz.com?subject=");
+		if (index != -1) {
+			subject = "Contact: " + contact.substring(index+31);
 		}
-	}
+	});
 
 	//RSS title
 	var rss = "";
