@@ -6,7 +6,7 @@ function go() {
 			if (i == j) return;
 			var img = $("<img />").attr("src",votey);
 			var div = $("<center />").append(img);
-			$(this.nextSibling).before(div);
+			$(this).after(div);
 		});
 	});
 }

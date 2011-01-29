@@ -23,7 +23,7 @@ function addTitle(info) {
 	var title = info[0];
 	var image = info[1];
 	var div = $("<div />").append(title);
-	$(image.nextSibling).before(div);
+	$(image).after(div);
 }
 
 function grabAndAdd(string) {
