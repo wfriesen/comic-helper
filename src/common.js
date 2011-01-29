@@ -22,8 +22,7 @@ function addTitle(info) {
 */
 	var title = info[0];
 	var image = info[1];
-	var div = document.createElement("div");
-	div.innerHTML = title;
+	var div = $("<div />").append(title);
 	$(image.nextSibling).before(div);
 }
 
