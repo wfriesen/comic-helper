@@ -1,32 +1,30 @@
 <html>
 <head><title>My Test Extension Options</title></head>
+<script type="text/javascript" src="jquery-1.4.4.min.js"></script>
 <script type="text/javascript">
 
 // Saves options to localStorage.
 function save_options() {
-	var checkboxes = document.getElementsByName("boxes");
-	for (i in checkboxes) {
-		var id = checkboxes[i].getAttribute("id");
-		localStorage[id] = checkboxes[i].checked;
-	}
+	$("input[name='boxes']").each(function() {
+		var id = $(this).attr("id");
+		localStorage[id] = this.checked;
+	});
 }
 
 // Restores select box state to saved value from localStorage.
 function restore_options() {
-	var checkboxes = document.getElementsByName("boxes");
-	for (i in checkboxes) {
-		var id = checkboxes[i].getAttribute("id");
+	$("input[name='boxes']").each(function() {
+		var id = $(this).attr("id");
 		var checked = localStorage[id];
-		checkboxes[i].checked = (!checked || checked == "true") ? true : false;
-	}
+		this.checked = (!checked || checked == "true") ? true : false;
+	});
 }
 
 // Select/Unselect all options
 function toggle_all(source) {
-	var checkboxes = document.getElementsByName("boxes");
-	for (i in checkboxes) {
-		checkboxes[i].checked = source.checked;
-	}
+	$("input[name='boxes']").each(function() {
+		this.checked = source.checked;
+	});
 }
 
 </script>
