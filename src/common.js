@@ -1,39 +1,36 @@
-function grabTitle(srcString) {
+function getTitleImage (srcString, needsTitle) {
 /*
-	Locate the first image to contain a given string.
-	Returns an array of the images title, and the image itself.
-	null values are returned if no matching image is found
+	Locate the first image whose src attribute contains srcString.
+	needsTitle is a boolean (defaults to true), and causes the function
+	to only return the image if it contains a "title" attribute, otherwise
+	it returns null
 */
+	if ( needsTitle == undefined ) needsTitle = true;
 	var image = null;
-	var title = null;
 	$("img[src*='"+srcString+"']").each(function(i) {
-		image = this;
-		if (image.hasAttribute("title")) {
-			title = image.getAttribute("title");
+		if ( !needsTitle || this.hasAttribute("title") ) {
+			image = this;
 		}
 	});
-	return [title, image];
+	return image;
 }
 
-function addTitle(info) {
+function addTitle(image) {
 /*
 	Simple way to add title text below a given image. For some comics,
-	calling this with the output of grabTitle is all that's needed
+	calling this with the output of getTitleImage is all that's needed
 */
-	var title = info[0];
-	var image = info[1];
-	var div = $("<div />").append(title);
+	var div = $("<div />").append($(image).attr("title"));
 	$(image).after(div);
 }
 
-function grabAndAdd(string) {
+function grabAndAdd(srcString) {
 /*
-	Puts together the grabTitle and addTitle functions, allowing some comics
-	to be coded in just this one function call
+	Puts together the getTitleImage and addTitle functions, allowing some
+	comics to be coded in just this one function call
 */
-	var info = grabTitle(string);
-	if (info[0] == null || info[1] == null) return;
-	else addTitle(info);
+		var titleImage = getTitleImage(srcString);
+		if ( titleImage != null ) addTitle(titleImage);
 }
 
 function checkOption(name, cb) {

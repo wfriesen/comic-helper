@@ -1,9 +1,8 @@
 function go() {
 	//title tag
-	var info = grabTitle("/comics/");
+	var image = getTitleImage("/comics/");
 	var title = "";
-	if (info[0] != null) title = "Title: " + info[0];
-	var image = info[1];
+	if (image != null) title = "Title: " + $(image).attr("title");
 
 	//subject line of "contact" email address
 	var subject = "";

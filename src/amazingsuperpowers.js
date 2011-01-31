@@ -12,12 +12,11 @@ function addSecrets(image, panel, text) {
 }
 
 function go() {
-	var info = grabTitle("/comics/");
-	if (info[0] != null && info[1] != null) {
-		var title = info[0];
-		var image = info[1];
+	var image = getTitleImage("/comics/");
+	if ( image != null ) {
+		var title = image.getAttribute("title");
 
-		var egg = grabTitle("ASPeasteregg.png")[1];
+		var egg = getTitleImage("ASPeasteregg.png", false);
 		if (egg != null) {
 			var panel = egg.parentNode.getAttribute("href");
 			addSecrets(image, panel, title);
