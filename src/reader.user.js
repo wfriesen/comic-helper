@@ -65,7 +65,6 @@ function ajax_panel(comic, link, item_body, title) {
 
 function get_extras(comic, item_body, link) {
 	link = encodeURIComponent(link);
-	var p = document.createElement("p");
 	var title = null;
 	switch (comic) {
 		case "ag":
@@ -73,7 +72,6 @@ function get_extras(comic, item_body, link) {
 		case "xkcd":
 			title = $(item_body).find("img").attr("title");
 			if (title) {
-				p.innerHTML = title;
 				add_secrets(item_body,title,null);
 			}
 			break;
