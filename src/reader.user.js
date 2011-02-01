@@ -33,33 +33,19 @@ function add_secrets(item_body, title, panel_src) {
 	$(item_body).after(div);
 }
 
-function handle_response(item_body, title, xmlHttp) {
-	var panel_src = null;
-	try {
-		var responseJSON = JSON.parse(xmlHttp.responseText);
-		panel_src = responseJSON.panel;
-	} catch (e) {
-	}
-
-	if (panel_src || title) {
-		add_secrets(item_body, title, panel_src);
-	}
-}
-
 function ajax_panel(comic, link, item_body, title) {
 	link = "http://comic-helper.appspot.com/panel?comic="+comic+"&link="+link;
-	var xmlHttp = new XMLHttpRequest();
-
-	if (xmlHttp) {
+	$.get(link, function(data) {
+		var panel_src = null;
 		try {
-			xmlHttp.open("GET",link,true);
-			xmlHttp.onreadystatechange = function () {
-				if (!(xmlHttp.readyState == 4)) return;
-				if (xmlHttp.status == 200) handle_response(item_body, title, xmlHttp);
-			}
-			xmlHttp.send();
+			responseJSON = JSON.parse(data);
+			panel_src = responseJSON.panel;
 		} catch (e) {}
-	}
+
+		if (panel_src || title) {
+			add_secrets(item_body, title, panel_src);
+		}
+	});
 }
 
 function get_extras(comic, item_body, link) {
