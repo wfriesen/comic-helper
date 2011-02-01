@@ -9,20 +9,19 @@
 // @require			https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js
 // ==/UserScript==
 
-var comics = {
-		"http://xkcd.com/*" : "xkcd",
-		"http://www.amazingsuperpowers.com/.*" : "asp",
-		"http://feedproxy.google.com/~r/AbstruseGoose/*" : "ag",
-		"http://www.boatcrime.com/*" : "bc",
-		"http://feedproxy.google.com/~r/smbc-comics/*" : "smbc",
-		"http://www.smbc-comics.com/*" : "smbc",
-		"http://www.explosm.net/comics/*" : "ch",
-		"http://feeds.penny-arcade.com/*" : "pa"
-}
 function is_comic(link) {
+	var comics = {
+			"http://xkcd.com/" : "xkcd",
+			"http://www.amazingsuperpowers.com/" : "asp",
+			"http://feedproxy.google.com/~r/AbstruseGoose/" : "ag",
+			"http://www.boatcrime.com/" : "bc",
+			"http://feedproxy.google.com/~r/smbc-comics/" : "smbc",
+			"http://www.smbc-comics.com/" : "smbc",
+			"http://www.explosm.net/comics/" : "ch",
+			"http://feeds.penny-arcade.com/" : "pa"
+	}
 	for (var c in comics) {
-		var test = new RegExp(c);
-		if ( test.test(link) ) return comics[c];
+		if ( link.match("^"+c) ) return comics[c];
 	}
 	return null;
 }
