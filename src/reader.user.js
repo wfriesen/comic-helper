@@ -6,59 +6,8 @@
 // @version			3.1.2
 // @include			http://reader.google.com/reader/*
 // @include			http://www.google.com/reader/*
+// @require			https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js
 // ==/UserScript==
-
-function getChildByClassName(className, parent) {
-	/*
-	Search the children of parent recursively, returning the first element
-	that has the given className
-	*/
-	for (var i=0; i<parent.childNodes.length; i++) {
-		if (parent.childNodes[i].className == className) return parent.childNodes[i];
-		if (parent.childNodes[i].hasChildNodes()) {
-			var childNode = getChildByClassName(className,parent.childNodes[i]);
-			if (childNode) return childNode;
-		}
-	}
-	return null;
-}
-
-function getChildByTagName(tagName, parent) {
-	/*
-	Search the children of parent recursively, returning the first element
-	that has the given tagName
-	*/
-	for (var i=0; i<parent.childNodes.length; i++) {
-		if (parent.childNodes[i].tagName &&
-				parent.childNodes[i].tagName.toLowerCase() == tagName ) return parent.childNodes[i];
-		if (parent.childNodes[i].hasChildNodes()) {
-			var childNode = getChildByTagName(tagName,parent.childNodes[i]);
-			if (childNode) return childNode;
-		}
-	}
-	return null;
-}
-
-function get_entry_main(element) {
-	entryTest = new RegExp("entry entry-\d*");
-	if ( !entryTest.test(element.className) ) return null;
-
-	var main = getChildByClassName("entry-main",element);
-	if (!main) return null;
-	else return main;
-}
-
-function get_item_body(entry_main) {
-	var item_body = getChildByClassName("item-body",entry_main);
-	if (!item_body) return null;
-	else return item_body;
-}
-
-function get_entry_title_link(entry_main) {
-	var link = getChildByClassName("entry-title-link",entry_main);
-	if (!link || !link.hasAttribute("href")) return null;
-	else return link.getAttribute("href");
-}
 
 var comics = {
 		"http://xkcd.com/*" : "xkcd",
@@ -79,28 +28,10 @@ function is_comic(link) {
 }
 
 function add_secrets(item_body, title, panel_src) {
-	var secrets = document.createElement("div");
-	if (title) {
-		var p = document.createElement("p");
-		p.innerHTML = title;
-		secrets.appendChild(p);
-	}
-
-	if (panel_src) {
-		var panel = document.createElement("img");
-		panel.setAttribute("src",panel_src);
-		secrets.appendChild(panel);
-	}
-
-	if (secrets.hasChildNodes()) {
-		var image = getChildByTagName("img", item_body);
-		if ( image ) {
-			while ( image.parentNode.tagName.toLowerCase() == "a") {
-				image = image.parentNode;
-			}
-			image.parentNode.insertBefore(secrets, image.nextSibling);
-		} else item_body.appendChild(secrets);
-	}
+	var div = $("<div />");
+	if ( title ) div.append($("<p />").append(title));
+	if ( panel_src ) div.append($("<img />").attr("src", panel_src));
+	$(item_body).after(div);
 }
 
 function handle_response(item_body, title, xmlHttp) {
@@ -140,22 +71,22 @@ function get_extras(comic, item_body, link) {
 		case "ag":
 		case "bc":
 		case "xkcd":
-			title = getChildByTagName("img",item_body).getAttribute("title");
+			title = $(item_body).find("img").attr("title");
 			if (title) {
 				p.innerHTML = title;
 				add_secrets(item_body,title,null);
 			}
 			break;
 		case "asp":
-			title = getChildByTagName("img",item_body).getAttribute("title");
+			title = $(item_body).find("img").attr("title");
 		case "smbc":
 		case "ch":
 			ajax_panel(comic,link, item_body, title);
 			break;
 		case "pa":
-			var div = getChildByTagName("div", item_body);
+			var div_html = $(item_body).find("div").html();
 			var test = /New Comic/i;
-			if (( div ) && ( test.test(div.innerHTML) )) {
+			if (( div_html ) && ( test.test(div_html) )) {
 				ajax_panel("pa",link, item_body, null);
 			}
 			break;
@@ -163,14 +94,21 @@ function get_extras(comic, item_body, link) {
 }
 
 var process_node = function(e) {
-	var entry_main = get_entry_main(e.target);
-	if ( !entry_main ) return;
-
-	var entry_title_link = get_entry_title_link(entry_main);
-	if ( !entry_title_link ) return;
-
-	var item_body = get_item_body(entry_main);
-	if ( !item_body ) return;
+	var entry_main = null;
+	var entry_title_link = null;
+	var item_body = null;
+	$(e.target).children("div").each(function() {
+		$(this).find("div[class='entry-main']").each(function() {
+			entry_main = this;
+			$(entry_main).find("a[class='entry-title-link']").each(function() {
+				entry_title_link = $(this).attr("href");
+			});
+			$(entry_main).find("div[class='item-body']").each(function() {
+				item_body = this;
+			});
+		});
+	});
+	if ( !entry_main || !entry_title_link || !item_body ) return;
 
 	var comic = is_comic(entry_title_link);
 	if ( !comic ) return;
