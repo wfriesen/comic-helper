@@ -3,6 +3,7 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import urlfetch
 from urlparse import urljoin, urlparse
+import urllib
 from BeautifulSoup import BeautifulSoup
 from django.utils import simplejson as json
 import datetime
@@ -118,11 +119,28 @@ def get_panel_secret(comic, link):
 
 	return secret
 
+def link_to_comic(link):
+	comic_urls = {
+		"http://www.amazingsuperpowers.com/" : "asp",
+		"http://feedproxy.google.com/~r/smbc-comics/" : "smbc",
+		"http://www.smbc-comics.com/" : "smbc",
+		"http://www.explosm.net/comics/" : "ch",
+		"http://feeds.penny-arcade.com/" : "pa"
+	}
+	for c in comic_urls:
+		if link.startswith(c):
+			return comic_urls[c]
+	return None
+
 class Panel(webapp.RequestHandler):
 	def get(self):
 		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
-		comic = self.request.get("comic")
 		link = self.request.get("link")
+		if link:
+			link = urllib.unquote(link)
+		comic = self.request.get("comic")
+		if not comic:
+			comic = link_to_comic(link)
 		if not (comic and link):
 			self.response.out.write(json.dumps({}))
 			return
