@@ -33,8 +33,8 @@ function add_secrets(item_body, title, panel_src) {
 	$(item_body).after(div);
 }
 
-function ajax_panel(comic, link, item_body, title) {
-	link = "http://comic-helper.appspot.com/panel?comic="+comic+"&link="+link;
+function ajax_panel(link, item_body, title) {
+	link = "http://comic-helper.appspot.com/panel?link="+link;
 	$.get(link, function(data) {
 		var panel_src = null;
 		try {
@@ -64,13 +64,13 @@ function get_extras(comic, item_body, link) {
 			title = $(item_body).find("img").attr("title");
 		case "smbc":
 		case "ch":
-			ajax_panel(comic,link, item_body, title);
+			ajax_panel(link, item_body, title);
 			break;
 		case "pa":
 			var div_html = $(item_body).find("div").html();
 			var test = /New Comic/i;
 			if (( div_html ) && ( test.test(div_html) )) {
-				ajax_panel("pa",link, item_body, null);
+				ajax_panel(link, item_body, null);
 			}
 			break;
 	}
