@@ -7,8 +7,10 @@
 // @version			3.1.2
 // @include			http://reader.google.com/reader/*
 // @include			http://www.google.com/reader/*
-// @require			https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js
+// @require			https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
 // ==/UserScript==
+
+var extension = false;
 
 function is_comic(link) {
 	var comics = {
@@ -34,19 +36,35 @@ function add_secrets(item_body, title, panel_src) {
 	$(item_body).after(div);
 }
 
+function handle_response(data, item_body, title) {
+	var panel_src = null;
+	try {
+		responseJSON = JSON.parse(data);
+		panel_src = responseJSON.panel;
+	} catch (e) {}
+
+	if (panel_src || title) {
+		add_secrets(item_body, title, panel_src);
+	}
+}
+
 function ajax_panel(link, item_body, title) {
 	link = "http://comic-helper.appspot.com/panel?link="+link;
-	$.get(link, function(data) {
-		var panel_src = null;
-		try {
-			responseJSON = JSON.parse(data);
-			panel_src = responseJSON.panel;
-		} catch (e) {}
-
-		if (panel_src || title) {
-			add_secrets(item_body, title, panel_src);
-		}
-	});
+	if ( extension ) {
+		$.get(link, function(data) {
+			handle_response(data, item_body, title);
+		});
+	} else {
+		setTimeout(function() {
+			GM_xmlhttpRequest({
+				method: "GET",
+				url: link,
+				onload: function(response) {
+					handle_response(response.responseText, item_body, title);
+				}
+			});
+		}, 0);
+	}
 }
 
 function get_extras(comic, item_body, link) {
@@ -105,6 +123,7 @@ function go() {
 }
 
 if ( typeof checkOption == 'function' ) {
+	extension = true;
 	checkOption("reader", go);
 } else {
 	go();
