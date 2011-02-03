@@ -100,4 +100,12 @@ var process_node = function(e) {
 	get_extras(comic, item_body, entry_title_link);
 }
 
-document.body.addEventListener('DOMNodeInserted', process_node, false);
+function go() {
+	document.body.addEventListener('DOMNodeInserted', process_node, false);
+}
+
+if ( typeof checkOption == 'function' ) {
+	checkOption("reader", go);
+} else {
+	go();
+}
