@@ -69,7 +69,8 @@ def pa(link, soup):
 	return get_src(link, soup, "art.penny-arcade.com")
 
 def get_secret(link, path):
-	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link = :link LIMIT 1", link=link)
+	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link = :link LIMIT 1",
+			link=link)
 	if cache.count() == 1:
 		if cache[0].secret:
 			return cache[0].secret
@@ -93,7 +94,8 @@ def get_secret(link, path):
 	return secret
 
 def get_panel_secret(comic, link):
-	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link = :link LIMIT 1", link=link)
+	cache = db.GqlQuery("SELECT * FROM SecretModel WHERE link = :link LIMIT 1",
+			link=link)
 	if cache.count() == 1:
 		if cache[0].secret:
 			return cache[0].secret
@@ -134,7 +136,8 @@ def link_to_comic(link):
 
 class Panel(webapp.RequestHandler):
 	def get(self):
-		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
+		self.response.headers["Access-Control-Allow-Origin"] = \
+				"http://www.google.com"
 		link = self.request.get("link")
 		if link:
 			link = urllib.unquote(link)
@@ -150,7 +153,8 @@ class Panel(webapp.RequestHandler):
 
 class DefaultHandler(webapp.RequestHandler):
 	def get(self):
-		self.response.headers["Access-Control-Allow-Origin"] = "http://www.google.com"
+		self.response.headers["Access-Control-Allow-Origin"] = \
+				"http://www.google.com"
 		path = self.request.path
 		if path in handlers:
 			link = self.request.get("link")
