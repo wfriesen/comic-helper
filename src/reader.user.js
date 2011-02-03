@@ -4,7 +4,7 @@
 // @description		Adds content to web comic RSS feeds shown in Google Reader,
 // including comics for feeds that don't include it, and hidden "easter egg"
 // content
-// @version			3.1.2
+// @version			3.2
 // @include			http://reader.google.com/reader/*
 // @include			http://www.google.com/reader/*
 // @require			https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js

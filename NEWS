@@ -1,6 +1,14 @@
 NEWS for Comic Helper
 =====================
 
+v3.2
+----
+
+Released Thursday, 3 February 2011
+
+* Added option to enable/disable on Google Reader
+* Code changes, now using jQuery
+
 v3.1.1
 ------
 
