@@ -60,7 +60,18 @@ def asp(link, soup):
 	return secret
 
 def ch(link, soup):
-	return get_src(link, soup, "/comics/")
+	comic = get_src(link, soup, "/comics/");
+	if not comic:
+		for img in soup.findAll(
+			"img",
+			attrs={
+				"alt" : "Cyanide and Happiness, a daily webcomic",
+				"src" : True
+			}
+		):
+			comic = img["src"]
+			break
+	return comic
 
 def smbc(link, soup):
 	return get_src(link, soup, "after.gif")
