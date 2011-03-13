@@ -3,6 +3,7 @@ from google.appengine.ext import db
 from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import urlfetch
 from urlparse import urljoin, urlparse
+import re
 import urllib
 from BeautifulSoup import BeautifulSoup
 from django.utils import simplejson as json
@@ -39,24 +40,29 @@ class SecretModel(db.Model):
 
 def get_src(link, soup, name):
 	src = None
-	for img in soup.findAll("img"):
-		if name.lower() in img["src"].lower():
-			try:
-				src = urljoin(link,img["src"])
-				break
-			except KeyError:
-				pass
+	for img in soup.findAll(
+		"img",
+		attrs={
+			"src" : re.compile(name,re.IGNORECASE)
+		}
+	):
+		src = urljoin(link,img["src"])
+		break
 	return src
 
 def asp(link, soup):
 	secret = None
-	for img in soup.findAll("img"):
-		if "ASPeasteregg.png" in img["src"]:
-			try:
-				secret = urljoin(link,img.parent["href"])
-				break
-			except KeyError:
-				pass
+	for img in soup.findAll(
+		"img",
+		attrs={
+			"src" : re.compile("aspeasteregg.png$",re.IGNORECASE)
+		}
+	):
+		try:
+			secret = urljoin(link,img.parent["href"])
+			break
+		except KeyError:
+			pass
 	return secret
 
 def ch(link, soup):
