@@ -14,9 +14,11 @@ function go() {
 	var image = getTitleImage("/comics/");
 	if ( image != null ) {
 		var title = $(image).attr("title");
-		var egg = getTitleImage("ASPeasteregg.png", false);
-		if (egg != null) {
-			var panel = $(egg.parentNode).attr("href");
+		var src = $(image).attr("src");
+		var re = new RegExp(/http:\/\/www\.amazingsuperpowers\.com\/comics\/(\d{4}-\d{2}-\d{2})-.*\.png/);
+		var match = re.exec(src);
+		if (match != null) {
+			panel = "http://www.amazingsuperpowers.com/hc/comics/" + match[1] + ".jpg";
 			addSecrets(image, panel, title);
 		}
 	}
