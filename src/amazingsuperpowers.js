@@ -11,15 +11,14 @@ function addSecrets(image, panel, text) {
 }
 
 function go() {
-	var image = getTitleImage("/comics/");
-	if ( image != null ) {
-		var title = $(image).attr("title");
-		var src = $(image).attr("src");
+	$("img[src^='http://www.amazingsuperpowers.com/comics']").each(function() {
+		var title = $(this).attr("title");
+		var src = $(this).attr("src");
 		panel = asp_regex(src);
 		if ( panel != null ) {
 			addSecrets(image, panel, title);
 		}
-	}
+	});
 }
 
 checkOption("asp", go);
