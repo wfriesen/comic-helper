@@ -35,7 +35,6 @@ class Comic:
 
 	def _validate_comic_url(self, url):
 		comic_urls = (
-				"www.amazingsuperpowers.com",
 				"www.smbc-comics.com",
 				"www.explosm.net",
 				"feeds.penny-arcade.com",
@@ -110,23 +109,6 @@ class Comic:
 			new_secret.link = self.link
 		new_secret.secret = self.secret
 		new_secret.put()
-
-class AmazingSuperPowers(Comic):
-	def _parse_secret(self):
-		"""
-		scrape the secret out of self.soup
-		"""
-		for img in self.soup.findAll(
-			"img",
-			attrs={
-				"src" : re.compile("aspeasteregg.png$",re.IGNORECASE)
-			}
-		):
-			try:
-				self.secret = urljoin(self.link,img.parent["href"])
-				break
-			except KeyError:
-				pass
 
 class SaturdayMorningBreakfastCereal(Comic):
 	def _parse_secret(self):

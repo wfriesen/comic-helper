@@ -80,7 +80,13 @@ function get_extras(comic, item_body, link) {
 			}
 			break;
 		case "asp":
-			title = $(item_body).find("img").attr("title");
+			var img = $(item_body).find("img");
+			title = img.attr("title");
+			var panel = asp_regex(img.attr("src"));
+			if ( panel != null ) {
+				add_secrets(item_body,title,panel);
+			}
+			break;
 		case "smbc":
 		case "ch":
 			ajax_panel(link, item_body, title);

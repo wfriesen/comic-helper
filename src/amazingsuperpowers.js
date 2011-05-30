@@ -15,10 +15,8 @@ function go() {
 	if ( image != null ) {
 		var title = $(image).attr("title");
 		var src = $(image).attr("src");
-		var re = new RegExp(/http:\/\/www\.amazingsuperpowers\.com\/comics\/(\d{4}-\d{2}-\d{2})-.*\.png/);
-		var match = re.exec(src);
-		if (match != null) {
-			panel = "http://www.amazingsuperpowers.com/hc/comics/" + match[1] + ".jpg";
+		panel = asp_regex(src);
+		if ( panel != null ) {
 			addSecrets(image, panel, title);
 		}
 	}

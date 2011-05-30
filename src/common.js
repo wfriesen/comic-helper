@@ -45,3 +45,19 @@ function checkOption(name, cb) {
 		}
 	});
 }
+
+function asp_regex(src) {
+/*
+	Perform the regular expression to translate from a given comic source
+	url, into it's associated hidden comic for amazingsuperpowers.com
+	This is stored in common.js so that it can be used in the files for
+	the ASP home page, as well as in Google Reader
+*/
+	var re = new RegExp(/http:\/\/www\.amazingsuperpowers\.com\/comics(-rss)?\/(\d{4}-\d{2}-\d{2})-.*\.png/);
+	var match = re.exec(src);
+	var panel = null;
+	if (match != null) {
+		panel = "http://www.amazingsuperpowers.com/hc/comics/" + match[2] + ".jpg";
+	}
+	return panel;
+}
