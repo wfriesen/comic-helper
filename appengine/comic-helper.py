@@ -7,8 +7,6 @@ import comic_objects
 # Determine comic argument from given link
 def link_to_comic(link):
 	comic_urls = {
-		"http://feedproxy.google.com/~r/smbc-comics/" : "smbc",
-		"http://www.smbc-comics.com/" : "smbc",
 		"http://www.explosm.net/comics/" : "ch",
 		"http://feeds.penny-arcade.com/" : "pa"
 	}
@@ -50,7 +48,6 @@ class Panel(webapp.RequestHandler):
 
 # Mappings of comic arguments to classes to use
 comics = {
-		"smbc" : comic_objects.SaturdayMorningBreakfastCereal,
 		"ch" : comic_objects.CyanideAndHappiness,
 		"pa" : comic_objects.PennyArcade
 }

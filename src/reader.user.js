@@ -88,6 +88,12 @@ function get_extras(comic, item_body, link) {
 			}
 			break;
 		case "smbc":
+			var img = $(item_body).find("img");
+			var panel = smbc_regex(img.attr("src"));
+			if ( panel != null ) {
+				add_secrets(item_body, null, panel);
+			}
+			break;
 		case "ch":
 			ajax_panel(link, item_body, title);
 			break;

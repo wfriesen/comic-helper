@@ -35,18 +35,10 @@ class Comic:
 
 	def _validate_comic_url(self, url):
 		comic_urls = (
-				"www.smbc-comics.com",
 				"www.explosm.net",
 				"feeds.penny-arcade.com",
 		)
 		netloc = urlparse(url).netloc
-		if netloc == "feedproxy.google.com":
-			result = urlfetch.fetch(url, method="HEAD", follow_redirects=False)
-			if "location" not in result.headers:
-				return None
-			else:
-				url = result.headers["location"]
-				netloc = urlparse(url).netloc
 		self.link = url if netloc in comic_urls else None
 
 	def _get_html(self):
@@ -109,10 +101,6 @@ class Comic:
 			new_secret.link = self.link
 		new_secret.secret = self.secret
 		new_secret.put()
-
-class SaturdayMorningBreakfastCereal(Comic):
-	def _parse_secret(self):
-		self.secret = self.get_src("after.gif")
 
 class CyanideAndHappiness(Comic):
 	def _parse_secret(self):
