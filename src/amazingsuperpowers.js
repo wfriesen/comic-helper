@@ -14,7 +14,7 @@ function go() {
 	$("img[src^='http://www.amazingsuperpowers.com/comics']").each(function() {
 		var title = $(this).attr("title");
 		var src = $(this).attr("src");
-		panel = asp_regex(src);
+		var panel = asp_regex(src);
 		if ( panel != null ) {
 			addSecrets(image, panel, title);
 		}
