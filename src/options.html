@@ -2,6 +2,14 @@
 <head><title>Comic Helper Options</title></head>
 <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	// Restores select box state to saved value from localStorage.
+	$("input[name='boxes']").each(function() {
+		var id = $(this).attr("id");
+		var checked = localStorage[id];
+		this.checked = (!checked || checked == "true") ? true : false;
+	});
+});
 
 // Saves options to localStorage.
 function save_options() {
@@ -13,15 +21,6 @@ function save_options() {
 	$("#saveMessage").show().delay(800).fadeOut(300);
 }
 
-// Restores select box state to saved value from localStorage.
-function restore_options() {
-	$("input[name='boxes']").each(function() {
-		var id = $(this).attr("id");
-		var checked = localStorage[id];
-		this.checked = (!checked || checked == "true") ? true : false;
-	});
-}
-
 // Select/Unselect all options
 function toggle_all(source) {
 	$("input[name='boxes']").each(function() {
@@ -31,7 +30,7 @@ function toggle_all(source) {
 
 </script>
 
-<body onload="restore_options()">
+<body>
 
 <p>Enabled for:</p>
 <input type="checkbox" name="boxes" id="smbc" />
