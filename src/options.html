@@ -9,6 +9,8 @@ function save_options() {
 		var id = $(this).attr("id");
 		localStorage[id] = this.checked;
 	});
+
+	$("#saveMessage").show().delay(800).fadeOut(300);
 }
 
 // Restores select box state to saved value from localStorage.
@@ -53,5 +55,9 @@ function toggle_all(source) {
 
 <br>
 <button onclick="save_options()">Save</button>
+<p />
+<div id="saveMessage" style="color: green; display: none;">
+Saved
+</div>
 </body>
 </html>
