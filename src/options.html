@@ -9,6 +9,11 @@ $(document).ready(function() {
 		var checked = localStorage[id];
 		this.checked = (!checked || checked == "true") ? true : false;
 	});
+
+	// If all options are checked, then check the "Select/Unselect all" checkbox
+	if ($("input[name='boxes']:checked").length == $("input[name='boxes']").length) {
+		$("#toggle").attr("checked", true);
+	}
 });
 
 // Saves options to localStorage.
