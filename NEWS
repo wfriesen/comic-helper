@@ -1,6 +1,16 @@
 NEWS for Comic Helper
 =====================
 
+v3.3
+----
+
+Released Thursday, 23 June 2011
+
+* Fix for new page layout of amazingsuperpowers
+* Show save confirmation in options page
+* Removed appengine code for SMBC and ASP, all done in javascript now
+* Refactored appengine code to use base Comic class
+
 v3.2
 ----
 
