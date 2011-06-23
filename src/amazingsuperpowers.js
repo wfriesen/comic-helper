@@ -16,7 +16,7 @@ function go() {
 		var src = $(this).attr("src");
 		var panel = asp_regex(src);
 		if ( panel != null ) {
-			addSecrets(image, panel, title);
+			addSecrets(this, panel, title);
 		}
 	});
 }
