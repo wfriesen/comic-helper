@@ -18,8 +18,7 @@ def link_to_comic(link):
 class Panel(webapp.RequestHandler):
 	def get(self):
 		# Header needed to stop the browser preventing CORS
-		self.response.headers["Access-Control-Allow-Origin"] = \
-				"http://www.google.com"
+		self.response.headers["Access-Control-Allow-Origin"] = "*"
 
 		# Obtain and validate arguments
 		link = self.request.get("link")
