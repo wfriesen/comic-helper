@@ -119,4 +119,5 @@ class CyanideAndHappiness(Comic):
 
 class PennyArcade(Comic):
 	def _parse_secret(self):
-		self.secret = self.get_src("art.penny-arcade.com")
+		self.secret =  self.get_src("penny-arcade.smugmug.com") or \
+				self.get_src("art.penny-arcade.com")
