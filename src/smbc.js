@@ -1,5 +1,5 @@
 function go() {
-	$("img[src^='http://www.smbc-comics.com/comics/']").each(function(i) {
+	$("img[src*='smbc-comics.com/comics/']").each(function(i) {
 		var src = $(this).attr("src");
 		var panel = smbc_regex(src);
 		if ( panel != null ) {

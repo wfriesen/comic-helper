@@ -66,11 +66,11 @@ function smbc_regex(src) {
 /*
 	Guess at the URL of the secret panel, given the src of a comic
 */
-	var re = new RegExp(/http:\/\/www\.smbc-comics\.com\/comics\/(\d{8})\.gif/);
+	var re = new RegExp(/http:\/\/(.*)\.smbc-comics\.com\/comics\/(\d{8})\.gif/);
 	var match = re.exec(src);
 	var panel = null;
 	if (match != null) {
-		panel = "http://www.smbc-comics.com/comics/"+match[1]+"after.gif";
+		panel = "http://"+match[1]+".smbc-comics.com/comics/"+match[2]+"after.gif";
 	}
 	return panel;
 }
