@@ -111,8 +111,7 @@ var process_node = function(e) {
 	var entry_main = null;
 	var entry_title_link = null;
 	var item_body = null;
-	$(e.target).children("div").each(function() {
-		$(this).find("div[class='entry-main']").each(function() {
+	$(e.target).children("div[class='entry-main']").each(function() {
 			entry_main = this;
 			$(entry_main).find("a[class='entry-title-link']").each(function() {
 				entry_title_link = $(this).attr("href");
@@ -120,7 +119,6 @@ var process_node = function(e) {
 			$(entry_main).find("div[class='item-body']").each(function() {
 				item_body = this;
 			});
-		});
 	});
 	if ( !entry_main || !entry_title_link || !item_body ) return;
 
