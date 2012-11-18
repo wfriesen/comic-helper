@@ -7,7 +7,7 @@
 // @version			3.2
 // @include			http://reader.google.com/reader/*
 // @include			http://www.google.com/reader/*
-// @require			https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
+// @require			https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js
 // ==/UserScript==
 
 var extension = false;
