@@ -3,13 +3,7 @@ Author: William Friesen <wfriesen@gmail.com>
 Licence: None / BSD
 
 Comic Helper makes it easier to read webcomics by including in the page any
-secret/easter egg content in hidden panels, alt text, etc, and improving
-RSS feeds in Google Reader by including content that isn't served by RSS.
-
-Included in /src is the source for a Google Chrome extension.
-/appengine includes the Google App Engine project that handles the scraping of
-hidden content data, returning it in JSON
-/src/reader.user.js can also be used as a Greasemonkey script
+secret/easter egg content in hidden panels, alt text, etc
 
 Comic Helper uses the Beautiful Soup Python module, under the BSD license,
 whose home page is http://www.crummy.com/software/BeautifulSoup/
